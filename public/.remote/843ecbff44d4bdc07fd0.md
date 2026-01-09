@@ -7,7 +7,7 @@ tags:
   - MobileApp
   - Pythonista3
 private: false
-updated_at: '2022-12-18T07:01:02+09:00'
+updated_at: '2026-01-09T23:28:16+09:00'
 id: 843ecbff44d4bdc07fd0
 organization_url_name: null
 slide: false
@@ -16,6 +16,8 @@ ignorePublish: false
 この記事は、[Pythonista3 Advent Calendar 2022](https://qiita.com/advent-calendar/2022/pythonista3) の18日目の記事です。
 
 https://qiita.com/advent-calendar/2022/pythonista3
+
+https://qiita.com/pome-ta/items/551bf5fb2448ddcacae0
 
 
 一方的な偏った目線で、Pythonista3 を紹介していきます。
@@ -988,6 +990,8 @@ if __name__ == '__main__':
 パラメータが多過ぎて何が何だか😅 な状態ですが、、、、
 
 ここまで、読んでいただきありがとうございました。
+
+https://qiita.com/pome-ta/items/29785f0edbe582210d2f
 
 ## せんでん
 
