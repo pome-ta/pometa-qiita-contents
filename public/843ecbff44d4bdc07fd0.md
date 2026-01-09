@@ -17,6 +17,8 @@ ignorePublish: false
 
 https://qiita.com/advent-calendar/2022/pythonista3
 
+
+前回👇
 https://qiita.com/pome-ta/items/551bf5fb2448ddcacae0
 
 
@@ -991,6 +993,7 @@ if __name__ == '__main__':
 
 ここまで、読んでいただきありがとうございました。
 
+次回👇
 https://qiita.com/pome-ta/items/29785f0edbe582210d2f
 
 ## せんでん
