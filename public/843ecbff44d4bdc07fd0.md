@@ -13,21 +13,24 @@ organization_url_name: null
 slide: false
 ignorePublish: false
 ---
-この記事は、[Pythonista3 Advent Calendar 2022](https://qiita.com/advent-calendar/2022/pythonista3) の18日目の記事です。
 
-https://qiita.com/advent-calendar/2022/pythonista3
+この記事は、[Pythonista3 Advent Calendar 2022](https://qiita.com/advent-calendar/2022/pythonista3) の 18 日目の記事です。
 
-
-前回👇
+👇 : 17 日目
 
 https://qiita.com/pome-ta/items/551bf5fb2448ddcacae0
 
+👇 : 19 日目
+
+https://qiita.com/pome-ta/items/29785f0edbe582210d2f
+
+https://qiita.com/advent-calendar/2022/pythonista3
 
 一方的な偏った目線で、Pythonista3 を紹介していきます。
 
-ほぼ毎日iPhone（Pythonista3）で、コーディングをしている者です。よろしくお願いします。
+ほぼ毎日 iPhone（Pythonista3）で、コーディングをしている者です。よろしくお願いします。
 
-以下、私の2022年12月時点の環境です。
+以下、私の 2022 年 12 月時点の環境です。
 
 ```sysInfo.log
 --- SYSTEM INFORMATION ---
@@ -45,23 +48,19 @@ https://qiita.com/pome-ta/items/551bf5fb2448ddcacae0
 - 取り込み後の、SceneKit 上での操作方法
 - さまざまな効果を使い、出力結果をにぎやかにする
 
-
 ![img221209_221509](https://user-images.githubusercontent.com/53405097/207567071-250b5b18-34ca-426f-a5e5-64a274f37d43.gif)
-
-
 
 ![img221210_004822](https://user-images.githubusercontent.com/53405097/207567369-40b70ca7-3929-49e2-bea2-1dca748338ce.gif)
 
-
 ## サンプルデータ
 
-前回は、SceneKit のみでScene を作りました。
+前回は、SceneKit のみで Scene を作りました。
 
 プリミティブな球体やボックスなど、標準的に用意されているもの以外ももちろん、3DCG の世界へ呼び出すことができます。
 
-他のデータを取り込むことにより、より豊かな3DCG 生活を楽しめるわけです。
+他のデータを取り込むことにより、より豊かな 3DCG 生活を楽しめるわけです。
 
-検索をすれば、いろいろなデータを見つけることができますが、今回はApple が公開しているデータを使ってみましょう。
+検索をすれば、いろいろなデータを見つけることができますが、今回は Apple が公開しているデータを使ってみましょう。
 
 [Documentation Archive](https://developer.apple.com/library/archive/navigation/#section=Technologies&topic=SceneKit)
 
@@ -81,6 +80,7 @@ https://developer.apple.com/library/archive/samplecode/scenekit-2017/Introductio
 他のおすすめな、データたちです。
 
 - [SceneKit State of the Union Demo](https://developer.apple.com/library/archive/samplecode/SceneKitReel/Introduction/Intro.html#//apple_ref/doc/uid/TP40014550)
+
   - SceneKit でよくみる、飛行機（？）のデータがある
 
 - [SceneKit slides for WWDC 2014](https://developer.apple.com/library/archive/samplecode/SceneKitWWDC2014/Introduction/Intro.html#//apple_ref/doc/uid/TP40014551)
@@ -90,14 +90,11 @@ https://developer.apple.com/library/archive/samplecode/scenekit-2017/Introductio
 
 ### iPhone に取り込み、Pythonista3 に取り込む
 
-データはPC からiPhone に移しても問題ありませんが、iPhone のみで完結も可能です。
+データは PC から iPhone に移しても問題ありませんが、iPhone のみで完結も可能です。
 
 [Fox 2: SceneKit WWDC 2017 sample code](https://developer.apple.com/library/archive/samplecode/scenekit-2017/Introduction/Intro.html#//apple_ref/doc/uid/TP40017656)
 
 ![img221209_220619](https://user-images.githubusercontent.com/53405097/207567602-c93198a2-9f13-4e4c-a24d-21bd03634b4e.png)
-
-
-
 
 https://developer.apple.com/library/archive/samplecode/scenekit-2017/Introduction/Intro.html#//apple_ref/doc/uid/TP40017656
 
@@ -106,15 +103,11 @@ https://developer.apple.com/library/archive/samplecode/scenekit-2017/Introductio
 
 ![img221209_220638](https://user-images.githubusercontent.com/53405097/207567864-3fd6e1d0-83f9-43f2-b205-2b55fb1e44f4.png)
 
-
 - `(↓)` アイコンでダウンロード完了がわかります
 
 ![img221209_220648](https://user-images.githubusercontent.com/53405097/207568017-7cdca818-f9b9-4f83-a1fb-05081f1f1ba0.png)
 
-
-
 ![img221209_220705](https://user-images.githubusercontent.com/53405097/207568118-bdb90138-195f-43fb-bd37-88296f88e9b4.png)
-
 
 1. `ファイルApp` で解凍
 
@@ -122,12 +115,7 @@ https://developer.apple.com/library/archive/samplecode/scenekit-2017/Introductio
 
 ![img221209_220718](https://user-images.githubusercontent.com/53405097/207568261-e66c3936-c245-41cc-bbf4-ebbcea1f7975.png)
 
-
-
-
 ![img221209_220910](https://user-images.githubusercontent.com/53405097/207568339-7be82d8d-ea82-4635-bd3c-68b8fccd1470.png)
-
-
 
 1. `ファイルApp` から、Pythonista3 へデータ移動
 
@@ -137,29 +125,21 @@ https://developer.apple.com/library/archive/samplecode/scenekit-2017/Introductio
 
 ![img221209_220947](https://user-images.githubusercontent.com/53405097/207568528-7991fdef-4935-4790-9e9f-c78b015320b5.png)
 
-
 - 共有アクションで`Run Pythonista Script` を選択
 
 ![img221209_220957](https://user-images.githubusercontent.com/53405097/207568670-d0e3595d-23ee-4ee9-8c5e-31862126802d.png)
 
-
-
 ![img221209_221004](https://user-images.githubusercontent.com/53405097/207568758-34b92400-ae90-42c1-a734-3c1fe45564be.png)
-
-
 
 - `Import File` で、Pythonista3 に取り込まれます
 
 ![img221209_221011](https://user-images.githubusercontent.com/53405097/207568851-135faa5f-7e0f-4336-884c-87e244dffc28.png)
 
-
-
 ![img221209_221017](https://user-images.githubusercontent.com/53405097/207568919-ddbcccf0-4272-47ce-93b6-8a34d44fcfaf.png)
-
 
 ### サンプルデータ探訪
 
-[WWDC 2017 の SceneKit サンプル Fox 2 を調べる その1 - Apple Engine](https://appleengine.hatenablog.com/entry/2018/04/17/130713)
+[WWDC 2017 の SceneKit サンプル Fox 2 を調べる その 1 - Apple Engine](https://appleengine.hatenablog.com/entry/2018/04/17/130713)
 
 https://appleengine.hatenablog.com/entry/2018/04/17/130713
 
@@ -569,10 +549,6 @@ https://appleengine.hatenablog.com/entry/2018/04/17/130713
 
 ![img221209_221315](https://user-images.githubusercontent.com/53405097/207569096-a22529da-9522-4f5b-a796-45430f95edc6.gif)
 
-
-
-
-
 ```py
 from objc_util import load_framework, ObjCClass, on_main_thread
 from objc_util import UIColor, UIImage, NSData, nsurl
@@ -717,7 +693,7 @@ if __name__ == '__main__':
 
 立ち上がり時のカクツキにドキッとしますが、それ以降は問題なく動きます。
 
-高性能なiPhone をモリモリと使っている気分でいいですよね。
+高性能な iPhone をモリモリと使っている気分でいいですよね。
 
 ### データインポート
 
@@ -734,13 +710,13 @@ tex_bks = UIImage.alloc().initWithData_(bkSky_URL)
 
 ```
 
-Swift やObjective-C では、標準的過ぎて解説が少ない代表例が、インポート関係です。
+Swift や Objective-C では、標準的過ぎて解説が少ない代表例が、インポート関係です。
 
 今回は、ファイルパスを`objc_util` で読める形式にしてから読み込みをさせています。
 
 他には、`MDLAsset` を使ったデータ読み込みの方法もあります。
 
-`SCNScene` より、`.scn` を読み込ませているので、`max.scn` に依存したScene となっています。
+`SCNScene` より、`.scn` を読み込ませているので、`max.scn` に依存した Scene となっています。
 
 今回は、触れませんでしたが`max` ちゃんの内部を見るには:
 
@@ -750,7 +726,7 @@ foxmaxNode = scene.rootNode().objectInChildNodesAtIndex_(0)
 
 これで、Node へアクセスできます。
 
-[WWDC 2017 の SceneKit サンプル Fox 2 を調べる その3 - Apple Engine](https://appleengine.hatenablog.com/entry/2018/04/17/160842)
+[WWDC 2017 の SceneKit サンプル Fox 2 を調べる その 3 - Apple Engine](https://appleengine.hatenablog.com/entry/2018/04/17/160842)
 
 https://appleengine.hatenablog.com/entry/2018/04/17/160842
 
@@ -770,11 +746,11 @@ camera.motionBlurIntensity = 6
 
 機能詳細は毎度のごとくの参照先ですが、比較的簡単な設定で効果がすごいのでパラメータを操作するだけでも楽しいです。
 
-[iOS で SceneKit を試す(Swift 3) その38 - Scene Editor カメラの基本設定 - Apple Engine](https://appleengine.hatenablog.com/entry/2017/07/24/164433)
+[iOS で SceneKit を試す(Swift 3) その 38 - Scene Editor カメラの基本設定 - Apple Engine](https://appleengine.hatenablog.com/entry/2017/07/24/164433)
 
 https://appleengine.hatenablog.com/entry/2017/07/24/164433
 
-### キューブマップや他の3DCG データ
+### キューブマップや他の 3DCG データ
 
 さりげなく処理をさせていましたが、`textures/Backgtound_sky.png` にて、キューブマップを設定しています。
 
@@ -786,11 +762,11 @@ scene.lightingEnvironment().contents = tex_bks
 scene.lightingEnvironment().intensity = 1.24
 ```
 
-[iOS で SceneKit を試す(Swift 3) その82 - キューブマップを設定する - Apple Engine](https://appleengine.hatenablog.com/entry/2017/08/28/193324)
+[iOS で SceneKit を試す(Swift 3) その 82 - キューブマップを設定する - Apple Engine](https://appleengine.hatenablog.com/entry/2017/08/28/193324)
 
 https://appleengine.hatenablog.com/entry/2017/08/28/193324
 
-以下は、過去に縄文土器のデータとNASA　のスターマップをキューブマップにしたキャプチャです。
+以下は、過去に縄文土器のデータと NASA 　のスターマップをキューブマップにしたキャプチャです。
 
 <blockquote class="twitter-tweet"><p lang="ja" dir="ltr">ワイのiPhoneが宇宙や<a href="https://twitter.com/hashtag/NASA?src=hash&amp;ref_src=twsrc%5Etfw">#NASA</a> <a href="https://twitter.com/hashtag/jomon?src=hash&amp;ref_src=twsrc%5Etfw">#jomon</a> <a href="https://twitter.com/hashtag/jomonosp?src=hash&amp;ref_src=twsrc%5Etfw">#jomonosp</a> <a href="https://twitter.com/hashtag/%E7%B8%84%E6%96%87%E3%82%AA%E3%83%BC%E3%83%97%E3%83%B3%E3%82%BD%E3%83%BC%E3%82%B9%E3%83%97%E3%83%AD%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88?src=hash&amp;ref_src=twsrc%5Etfw">#縄文オープンソースプロジェクト</a> <a href="https://twitter.com/hashtag/Pythonista?src=hash&amp;ref_src=twsrc%5Etfw">#Pythonista</a> <a href="https://t.co/2Z5DPsG0oF">https://t.co/2Z5DPsG0oF</a> <a href="https://t.co/MYtRkKJ5kU">pic.twitter.com/MYtRkKJ5kU</a></p>&mdash; pome-ta (@pome_ta93) <a href="https://twitter.com/pome_ta93/status/1308027038008131584?ref_src=twsrc%5Etfw">September 21, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
@@ -806,7 +782,7 @@ https://jomon-supporters.jp/open-source/
 
 <blockquote class="twitter-tweet"><p lang="ja" dir="ltr">おそら、きれい<br><br>な、火焔型土器さん<a href="https://twitter.com/hashtag/jomon?src=hash&amp;ref_src=twsrc%5Etfw">#jomon</a> <a href="https://twitter.com/hashtag/jomonosp?src=hash&amp;ref_src=twsrc%5Etfw">#jomonosp</a> <a href="https://twitter.com/hashtag/%E7%B8%84%E6%96%87%E3%82%AA%E3%83%BC%E3%83%97%E3%83%B3%E3%82%BD%E3%83%BC%E3%82%B9%E3%83%97%E3%83%AD%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88?src=hash&amp;ref_src=twsrc%5Etfw">#縄文オープンソースプロジェクト</a><a href="https://twitter.com/hashtag/Pythonista3?src=hash&amp;ref_src=twsrc%5Etfw">#Pythonista3</a> <a href="https://twitter.com/hashtag/Python?src=hash&amp;ref_src=twsrc%5Etfw">#Python</a> <a href="https://t.co/GXHh8nEfSY">pic.twitter.com/GXHh8nEfSY</a></p>&mdash; pome-ta (@pome_ta93) <a href="https://twitter.com/pome_ta93/status/1295550764782256128?ref_src=twsrc%5Etfw">August 18, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
-3DCG 関係はさまざまな形式でデータがあり、配布されているので。SNS 等で知ったデータをすぐにiPhone で確認できてしまう。というのは面白いですね。
+3DCG 関係はさまざまな形式でデータがあり、配布されているので。SNS 等で知ったデータをすぐに iPhone で確認できてしまう。というのは面白いですね。
 
 ## パーティクル
 
@@ -814,15 +790,11 @@ https://jomon-supporters.jp/open-source/
 
 SceneKit にももちろんパーティクル機能があるので、一部の機能のみですが最後に紹介をして終えたいと思います。
 
-[iOS で SceneKit を試す(Swift 3) その78 - パーティクルシステムのパラメーターをみてみる - Apple Engine](https://appleengine.hatenablog.com/entry/2017/08/23/202915)
+[iOS で SceneKit を試す(Swift 3) その 78 - パーティクルシステムのパラメーターをみてみる - Apple Engine](https://appleengine.hatenablog.com/entry/2017/08/23/202915)
 
 https://appleengine.hatenablog.com/entry/2017/08/23/202915
 
-
 ![img221210_005139](https://user-images.githubusercontent.com/53405097/207569413-4cc41dc8-3f19-49f3-ab25-755f9d6ebea1.gif)
-
-
-
 
 ```py
 from objc_util import load_framework, ObjCClass, on_main_thread
@@ -990,11 +962,11 @@ if __name__ == '__main__':
 
 ```
 
-パラメータが多過ぎて何が何だか😅 な状態ですが、、、、
+パラメータが多過ぎて何が何だか 😅 な状態ですが、、、、
 
 ここまで、読んでいただきありがとうございました。
 
-次回👇
+👇 : 19 日目
 
 https://qiita.com/pome-ta/items/29785f0edbe582210d2f
 
@@ -1024,7 +996,7 @@ https://techbookfest.org/product/wTZTyeibm5GQ5XgdfMrEBV?productVariantID=kRDmN1u
 
 [Pythonista3 Advent Calendar 2022](https://qiita.com/advent-calendar/2022/pythonista3) でのコードをまとめているリポジトリがあります。
 
-コードのエラーや変なところや改善点など。ご指摘やPR お待ちしておりますー
+コードのエラーや変なところや改善点など。ご指摘や PR お待ちしておりますー
 
 https://github.com/pome-ta/Pythonista3AdventCalendar2022sampleCode
 
@@ -1038,6 +1010,6 @@ https://twitter.com/pome_ta93
 
 - GitHub
 
-基本的にGitHub にコードをあげているので、何にハマって何を実装しているのか観測できると思います。
+基本的に GitHub にコードをあげているので、何にハマって何を実装しているのか観測できると思います。
 
 https://github.com/pome-ta

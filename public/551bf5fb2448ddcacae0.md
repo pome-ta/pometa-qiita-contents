@@ -13,15 +13,24 @@ organization_url_name: null
 slide: false
 ignorePublish: false
 ---
-この記事は、[Pythonista3 Advent Calendar 2022](https://qiita.com/advent-calendar/2022/pythonista3) の17日目の記事です。
+
+この記事は、[Pythonista3 Advent Calendar 2022](https://qiita.com/advent-calendar/2022/pythonista3) の 17 日目の記事です。
+
+👇 : 16 日目
+
+https://qiita.com/pome-ta/items/aa045a99947e02506f23
+
+👇 : 18 日目
+
+https://qiita.com/pome-ta/items/843ecbff44d4bdc07fd0
 
 https://qiita.com/advent-calendar/2022/pythonista3
 
 一方的な偏った目線で、Pythonista3 を紹介していきます。
 
-ほぼ毎日iPhone（Pythonista3）で、コーディングをしている者です。よろしくお願いします。
+ほぼ毎日 iPhone（Pythonista3）で、コーディングをしている者です。よろしくお願いします。
 
-以下、私の2022年12月時点の環境です。
+以下、私の 2022 年 12 月時点の環境です。
 
 ```sysInfo.log
 --- SYSTEM INFORMATION ---
@@ -35,22 +44,16 @@ https://qiita.com/advent-calendar/2022/pythonista3
 
 ## この記事でわかること
 
-- Pythonista3 での基礎的なsceneKit の使い方
+- Pythonista3 での基礎的な sceneKit の使い方
   - 球体やボックスを出す
   - カメラを操作する
   - 物理演算を使う
   - debugOptions を使う
 - Swift -> Objective-C -> `objc_util` モジュールへの書き換え
 
-
-
 ![img221208_175438.gif](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/2953777/8f8fd12f-9d9d-4b5c-8d01-da5b1b17f483.gif)
 
-
-
 ![img221209_004533.gif](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/2953777/ce07bb49-b315-22f2-f3cd-1a3ae815e212.gif)
-
-
 
 ## Pythonista3 の`scene` モジュールじゃないの。SceneKit Framework なの
 
@@ -58,23 +61,23 @@ https://qiita.com/advent-calendar/2022/pythonista3
 
 https://omz-software.com/pythonista/docs/ios/scene.html
 
-3DCG のFramework である、[SceneKit | Apple Developer Documentation](https://developer.apple.com/documentation/scenekit?language=objc) を`objc_util` モジュールで呼び出してPythonista3 で遊んでいきます。
+3DCG の Framework である、[SceneKit | Apple Developer Documentation](https://developer.apple.com/documentation/scenekit?language=objc) を`objc_util` モジュールで呼び出して Pythonista3 で遊んでいきます。
 
 https://developer.apple.com/documentation/scenekit?language=objc
 
 Qiita に他の方が書かれた記事もあります。
 
-[PythonistaでSceneKitを使った3D描画 - Qiita](https://qiita.com/yohei_takada201/items/af1cca8d96a8b49097c5)
+[Pythonista で SceneKit を使った 3D 描画 - Qiita](https://qiita.com/yohei_takada201/items/af1cca8d96a8b49097c5)
 
 https://qiita.com/yohei_takada201/items/af1cca8d96a8b49097c5
 
-[pythonista3で物理シミュレーション - Qiita](https://qiita.com/runomee/items/b22e5bd1a95eb0ab1dab)
+[pythonista3 で物理シミュレーション - Qiita](https://qiita.com/runomee/items/b22e5bd1a95eb0ab1dab)
 
 https://qiita.com/runomee/items/b22e5bd1a95eb0ab1dab
 
-SceneKit（Swift やObjective-C で書かれた）コードから、Pythonista3 へ実装できるよう進めていきます。
+SceneKit（Swift や Objective-C で書かれた）コードから、Pythonista3 へ実装できるよう進めていきます。
 
-当たり前ですが、Pythonista3 のSceneKit 実装のコードよりもSwift やObjective-C で書かれたSceneKit のサンプルの方が多いので。
+当たり前ですが、Pythonista3 の SceneKit 実装のコードよりも Swift や Objective-C で書かれた SceneKit のサンプルの方が多いので。
 
 前回までの`AVAudioEngine` は地獄でしたが、今回は比較的簡単だと思います！
 
@@ -84,11 +87,11 @@ SceneKit（Swift やObjective-C で書かれた）コードから、Pythonista3 
 
 https://developer.apple.com/documentation/scenekit/scnscene?language=objc
 
-Overview のイラストにあるように、描画するためのView（[SCNView | Apple Developer Documentation](https://developer.apple.com/documentation/scenekit/scnview?language=objc)）があり、3DCG 世界の土台としてのScene（[SCNScene | Apple Developer Documentation](https://developer.apple.com/documentation/scenekit/scnscene?language=objc)）があります。
+Overview のイラストにあるように、描画するための View（[SCNView | Apple Developer Documentation](https://developer.apple.com/documentation/scenekit/scnview?language=objc)）があり、3DCG 世界の土台としての Scene（[SCNScene | Apple Developer Documentation](https://developer.apple.com/documentation/scenekit/scnscene?language=objc)）があります。
 
-我々は、View を通して3DCG の世界を覗かせて頂いています。
+我々は、View を通して 3DCG の世界を覗かせて頂いています。
 
-Scene には`rootNode` というものが生えています。我々が3DCG 世界に登場させたいモノは、`Node` というカタチに納めて`rootNode` に取り込んでもらいます（`addChildNode`）。
+Scene には`rootNode` というものが生えています。我々が 3DCG 世界に登場させたいモノは、`Node` というカタチに納めて`rootNode` に取り込んでもらいます（`addChildNode`）。
 
 ```イメージ
 SCNView → UIView にaddSubview することで見れる
@@ -105,15 +108,14 @@ Node（[SCNNode | Apple Developer Documentation](https://developer.apple.com/doc
 
 https://developer.apple.com/documentation/scenekit/scnnode?language=objc
 
-
 - ジオメトリ（3D の物体オブジェクト、メッシュ）
 - 色情報や質感
 - ライト
 - カメラ
 
-またNode 自体では
+また Node 自体では
 
-- （3DCG内の）位置
+- （3DCG 内の）位置
 - 回転
 - スケール
 
@@ -121,11 +123,11 @@ https://developer.apple.com/documentation/scenekit/scnnode?language=objc
 
 Node に出したいモノや使いたいモノを付けて、位置や大きさなどを決め、`rootNode` へ`addChildNode` することで、3DCG 世界に登場させることができるのです。
 
-UIView の`addSubview` で他のView を取り込んで画面を構築していく親子関係と、大きくは変わりません。
+UIView の`addSubview` で他の View を取り込んで画面を構築していく親子関係と、大きくは変わりません。
 
 ちなみに、SceneKit は右手座標系です。OpenGL, Vulkan と同じ座標系です。
 
-ちなみにちなみに、Metal は、左手系なのでDirectX と同じですね。
+ちなみにちなみに、Metal は、左手系なので DirectX と同じですね。
 
 ### 参照先
 
@@ -133,13 +135,11 @@ UIView の`addSubview` で他のView を取り込んで画面を構築してい�
 
 https://appleengine.hatenablog.com/
 
-
 こちらの`SceneKit` カテゴリに大変お世話になっています。
 
 [SceneKit カテゴリーの記事一覧 - Apple Engine](https://appleengine.hatenablog.com/archive/category/SceneKit)
 
 https://appleengine.hatenablog.com/archive/category/SceneKit
-
 
 しかし[更新終了のお知らせ - Apple Engine](https://appleengine.hatenablog.com/entry/2020/12/14/190949)と、あるように今後消えてしまう可能性もあるので、読めるうちに読んでおきましょう。
 
@@ -147,9 +147,9 @@ https://appleengine.hatenablog.com/entry/2020/12/14/190949
 
 今回は「iOS で SceneKit を試す(Swift 3) 」シリーズ参考に進めていきます。
 
-その1 〜その3 の概要は、先ほどの私の説明よに数億倍わかりやすいのでおすすめです。
+その 1 〜その 3 の概要は、先ほどの私の説明よに数億倍わかりやすいのでおすすめです。
 
-まずは、[iOS で SceneKit を試す(Swift 3) その4 - SceneKit の構造 - Apple Engine](https://appleengine.hatenablog.com/entry/2017/05/30/192435) より始めていきます。都度対応するパートも提示するので、Swift のコード等は、リンク先を参照ください。
+まずは、[iOS で SceneKit を試す(Swift 3) その 4 - SceneKit の構造 - Apple Engine](https://appleengine.hatenablog.com/entry/2017/05/30/192435) より始めていきます。都度対応するパートも提示するので、Swift のコード等は、リンク先を参照ください。
 
 https://appleengine.hatenablog.com/entry/2017/05/30/192435
 
@@ -157,23 +157,19 @@ https://appleengine.hatenablog.com/entry/2017/05/30/192435
 
 ### 土台つくり
 
-Pythonista3 の`ui.View` にSceneKit を出せるようにしましょう。
+Pythonista3 の`ui.View` に SceneKit を出せるようにしましょう。
 
-その3、その4を参考にしています。
+その 3、その 4 を参考にしています。
 
-[iOS で SceneKit を試す(Swift 3) その4 - SceneKit の構造 - Apple Engine](https://appleengine.hatenablog.com/entry/2017/05/30/192435)
+[iOS で SceneKit を試す(Swift 3) その 4 - SceneKit の構造 - Apple Engine](https://appleengine.hatenablog.com/entry/2017/05/30/192435)
 
 https://appleengine.hatenablog.com/entry/2017/05/30/192435
 
-[iOS で SceneKit を試す(Swift 3) その5 - シーンエディタを使用しない空のテンプレートをつくる - Apple Engine](https://appleengine.hatenablog.com/entry/2017/06/01/124340)
+[iOS で SceneKit を試す(Swift 3) その 5 - シーンエディタを使用しない空のテンプレートをつくる - Apple Engine](https://appleengine.hatenablog.com/entry/2017/06/01/124340)
 
 https://appleengine.hatenablog.com/entry/2017/06/01/124340
 
-
 ![img221207_202303.gif](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/2953777/3f366807-97b6-eb82-d6ec-a13c6fde66cd.gif)
-
-
-
 
 ```py
 from objc_util import load_framework, ObjCClass, on_main_thread
@@ -243,22 +239,19 @@ if __name__ == '__main__':
 
 デバッグ情報を出すのになかなかコツがいるのですが、デバッグ情報のバーの左側に`+` のアイコンがあり、その近辺をポチポチしてると出てきます。。。
 
-
 ![img221207_203225.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/2953777/6db6d13a-ff86-9ecf-26fc-c9950a039a25.png)
-
-
 
 #### `ui.View` と`SCNView` の繋ぎ合わせ
 
-Pythonista3 の世界に`objc_util` で呼び出したSceneKit を繋げるために、`SCNView` を介しています。
+Pythonista3 の世界に`objc_util` で呼び出した SceneKit を繋げるために、`SCNView` を介しています。
 
-`ui` モジュールのView と`objc_util` のView は、気軽には繋げません。
+`ui` モジュールの View と`objc_util` の View は、気軽には繋げません。
 
 ```py
 ui.View.objc_instance.addSubview_(scnView)
 ```
 
-`ui.View` 側で、`objc_util` のView として立ち回れる`objc_instance` として、Objective-C の`UIView` のメソッドの`addSubview_` を使い`SCNView` を取り込んでいます。
+`ui.View` 側で、`objc_util` の View として立ち回れる`objc_instance` として、Objective-C の`UIView` のメソッドの`addSubview_` を使い`SCNView` を取り込んでいます。
 
 #### `SCNView` の事前準備
 
@@ -281,7 +274,7 @@ scnView.setAutoresizingMask_((1 << 1) | (1 << 4))
 
 面白いですね。
 
-この準備を終えたら、`ui.View` のView に`addSubview_` してもらい、晴れてPythonista3 で描画されます。
+この準備を終えたら、`ui.View` の View に`addSubview_` してもらい、晴れて Pythonista3 で描画されます。
 
 ここでしれっと、背景を黒色にしています。
 
@@ -297,8 +290,6 @@ scnView.backgroundColor = UIColor.blackColor()
 
 ![img221207_210945.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/2953777/755c44ba-aa49-efbe-c593-63c0d5120404.png)
 
-
-
 上記のコードではコメントアウトしています。
 
 コメントアウトを外し実行すると、赤背景は出ずに、立ち上がり直後`SCNView` の黒画面が表示されるのが確認できます。
@@ -309,26 +300,23 @@ scnView.backgroundColor = UIColor.blackColor()
 
 #### class `GameScene`
 
-往々にしてSceneKit は、class 内がfat になりがちです。
+往々にして SceneKit は、class 内が fat になりがちです。
 
 View の処理と、Node の処理を意識的に分ける意味合いで`GameScene` class として宣言しています。
 
 View 側で、`scene` を触りたい場面には、`self` を生やしていく方針です。
 
-### 箱を出して色付け、ライト設置で影も付けるし、カメラ登場の3D 空間ぐりんぐりんする
+### 箱を出して色付け、ライト設置で影も付けるし、カメラ登場の 3D 空間ぐりんぐりんする
 
-何もない3D 空間から、ドカっと登場させます。
+何もない 3D 空間から、ドカっと登場させます。
 
 - 赤色`ambient`
 
 ![img221208_175016.gif](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/2953777/b432535e-d1b9-7682-faed-8c72f83246fc.gif)
 
-
-
-- boxに青色
+- box に青色
 
 ![img221208_175438.gif](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/2953777/40aa44f4-691a-8b03-5912-ec8805659447.gif)
-
 
 ```py
 from objc_util import load_framework, ObjCClass, on_main_thread
@@ -432,7 +420,7 @@ if __name__ == '__main__':
 
 ```
 
-引き続きその3、その4を参考にしています。
+引き続きその 3、その 4 を参考にしています。
 
 #### class `GameScene` の部分
 
@@ -444,7 +432,7 @@ if __name__ == '__main__':
 
 ##### `scene.rootNode().addChildNode_` の呼び出し
 
-生成した、Node たちを3DCG 世界（`scene`）に登場させる、クサビ的な立ち位置です。
+生成した、Node たちを 3DCG 世界（`scene`）に登場させる、クサビ的な立ち位置です。
 
 Node は、`rootNode` に全集合させます。
 
@@ -466,23 +454,21 @@ scene.rootNode().addChildNode_(Node)
 
 色を付けるには、`firstMaterial().diffuse().contents` より`UIColor` を使います。
 
-マテリアルの細かい質感は、[iOS で SceneKit を試す(Swift 3) その33 - ジオメトリの質感を決めるマテリアルについて - Apple Engine](https://appleengine.hatenablog.com/entry/2017/07/19/161307) こちらにて、説明があります。
+マテリアルの細かい質感は、[iOS で SceneKit を試す(Swift 3) その 33 - ジオメトリの質感を決めるマテリアルについて - Apple Engine](https://appleengine.hatenablog.com/entry/2017/07/19/161307) こちらにて、説明があります。
 
 https://appleengine.hatenablog.com/entry/2017/07/19/161307
-
 
 `rootNode` に取り込んでもらうために、`SCNNode.nodeWithGeometry_(box)` として、ジオメトリの`box` を`SCNNode` に格納します。
 
 `SCNAction` で、Node にアニメーション設定をして、今回は常にくるくると回ってもらうことにしています。
 
-[iOS で SceneKit を試す(Swift 3) その4 - SceneKit の構造 - Apple Engine](https://appleengine.hatenablog.com/entry/2017/05/30/192435) では、地球のテクスチャを貼り付けていますが、外部データ読み込みは次回説明予定なので、今回は、球体ではなくBox に回ってもらうことにしています。
+[iOS で SceneKit を試す(Swift 3) その 4 - SceneKit の構造 - Apple Engine](https://appleengine.hatenablog.com/entry/2017/05/30/192435) では、地球のテクスチャを貼り付けていますが、外部データ読み込みは次回説明予定なので、今回は、球体ではなく Box に回ってもらうことにしています。
 
 https://appleengine.hatenablog.com/entry/2017/05/30/192435
 
-
 ##### `SCNLight`, `SCNCamera`
 
-ジオメトリ生成とほぼ同様です。最終的に`SCNNode` へNode として、存在していないと`rootNode` へ`addChildNode_` できない点を忘れずに意識します。
+ジオメトリ生成とほぼ同様です。最終的に`SCNNode` へ Node として、存在していないと`rootNode` へ`addChildNode_` できない点を忘れずに意識します。
 
 Swift コードですと:
 
@@ -520,19 +506,17 @@ scnView.allowsCameraControl = True
 
 ### この世界に重力を導入することとする
 
-その9とその10を参考にしながら、物理演算を設定しボールを落下させたり衝突させたりしましょう。
+その 9 とその 10 を参考にしながら、物理演算を設定しボールを落下させたり衝突させたりしましょう。
 
-[iOS で SceneKit を試す(Swift 3) その9 - 物理アニメーションを試す - Apple Engine](https://appleengine.hatenablog.com/entry/2017/06/05/194211)
+[iOS で SceneKit を試す(Swift 3) その 9 - 物理アニメーションを試す - Apple Engine](https://appleengine.hatenablog.com/entry/2017/06/05/194211)
 
 https://appleengine.hatenablog.com/entry/2017/06/05/194211
 
-[iOS で SceneKit を試す(Swift 3) その10 - ノードをコピーして端末負荷を下げる - Apple Engine](https://appleengine.hatenablog.com/entry/2017/06/13/194707)
+[iOS で SceneKit を試す(Swift 3) その 10 - ノードをコピーして端末負荷を下げる - Apple Engine](https://appleengine.hatenablog.com/entry/2017/06/13/194707)
 
 https://appleengine.hatenablog.com/entry/2017/06/13/194707
 
-
 ![img221209_004533.gif](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/2953777/5c849d31-33f5-bb74-9b15-5fd72bb98828.gif)
-
 
 ```py
 from objc_util import load_framework, ObjCClass, on_main_thread
@@ -673,9 +657,9 @@ if __name__ == '__main__':
 
 `physicsBall` に対し`Geometry` か`Node` どちらがいいかわらず、現在検証中です。
 
-また、その10の`clone` が、多分効いていない状態だと思われます。こちらも調査中です。。。
+また、その 10 の`clone` が、多分効いていない状態だと思われます。こちらも調査中です。。。
 
-#### デバッグオブションを設定して3DCG 世界をもっと深く見る
+#### デバッグオブションを設定して 3DCG 世界をもっと深く見る
 
 個人的にはテンションあがるやつです。
 
@@ -692,10 +676,7 @@ _debugOptions = ((1 << 0) | (1 << 1) | (1 << 4) | (1 << 5) | (1 << 6) | (1 << 10
 scnView.debugOptions = _debugOptions
 ```
 
-
 ![img221209_005508.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/2953777/d9d10c2b-d4fe-30b7-6230-589e848eedd0.png)
-
-
 
 ワイヤー表示っていいですよね。
 
@@ -711,20 +692,19 @@ SceneKit と`objc_util` の関係性の理解が深まったら、以下リポ�
 
 https://github.com/pulbrich/sceneKit-wrapper-for-Pythonista
 
+今回の我々のように、生な`objc_util` を使うのではなく、Wrapper として Pythonista3 で気軽に SceneKit が使えるように作成した方がいらっしゃいます。 なんという情熱なんでしょう。。。
 
+Swift や Objective-C で書かれたサンプル実装で困った時に、該当の実装内容を見にいくとヒントがあったりして勉強になります。
 
-今回の我々のように、生な`objc_util` を使うのではなく、Wrapper としてPythonista3 で気軽にSceneKit が使えるように作成した方がいらっしゃいます。 なんという情熱なんでしょう。。。
-
-Swift やObjective-C で書かれたサンプル実装で困った時に、該当の実装内容を見にいくとヒントがあったりして勉強になります。
-
-次回は、もっと素敵な絵を出したいので、外部からデータを持ってきてSceneKit 上に登場させたりしたいと思います。
+次回は、もっと素敵な絵を出したいので、外部からデータを持ってきて SceneKit 上に登場させたりしたいと思います。
 
 絵力がグッと上がると思いますよー。
 
 ここまで、読んでいただきありがとうございました。
 
-https://qiita.com/pome-ta/items/843ecbff44d4bdc07fd0
+👇 : 18 日目
 
+https://qiita.com/pome-ta/items/843ecbff44d4bdc07fd0
 
 ## せんでん
 
@@ -752,7 +732,7 @@ https://techbookfest.org/product/wTZTyeibm5GQ5XgdfMrEBV?productVariantID=kRDmN1u
 
 [Pythonista3 Advent Calendar 2022](https://qiita.com/advent-calendar/2022/pythonista3) でのコードをまとめているリポジトリがあります。
 
-コードのエラーや変なところや改善点など。ご指摘やPR お待ちしておりますー
+コードのエラーや変なところや改善点など。ご指摘や PR お待ちしておりますー
 
 https://github.com/pome-ta/Pythonista3AdventCalendar2022sampleCode
 
@@ -766,6 +746,6 @@ https://twitter.com/pome_ta93
 
 - GitHub
 
-基本的にGitHub にコードをあげているので、何にハマって何を実装しているのか観測できると思います。
+基本的に GitHub にコードをあげているので、何にハマって何を実装しているのか観測できると思います。
 
 https://github.com/pome-ta

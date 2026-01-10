@@ -13,15 +13,24 @@ organization_url_name: null
 slide: false
 ignorePublish: false
 ---
-この記事は、[Pythonista3 Advent Calendar 2022](https://qiita.com/advent-calendar/2022/pythonista3) の10日目の記事です。
+
+この記事は、[Pythonista3 Advent Calendar 2022](https://qiita.com/advent-calendar/2022/pythonista3) の 10 日目の記事です。
+
+👇 : 09 日目
+
+https://qiita.com/pome-ta/items/0e2d3bd3e22fe922f2c0
+
+👇 : 11 日目
+
+https://qiita.com/pome-ta/items/3315732c8db62a55b86b
 
 https://qiita.com/advent-calendar/2022/pythonista3
 
 一方的な偏った目線で、Pythonista3 を紹介していきます。
 
-ほぼ毎日iPhone（Pythonista3）で、コーディングをしている者です。よろしくお願いします。
+ほぼ毎日 iPhone（Pythonista3）で、コーディングをしている者です。よろしくお願いします。
 
-以下、私の2022年12月時点の環境です。
+以下、私の 2022 年 12 月時点の環境です。
 
 ```sysInfo.log
 --- SYSTEM INFORMATION ---
@@ -35,13 +44,13 @@ https://qiita.com/advent-calendar/2022/pythonista3
 
 ## グラフィクスプログラミングハラスメント
 
-前回までは、絵を出すプログラミングでShader のGLSL や、path で線を引く方法を紹介しました。
+前回までは、絵を出すプログラミングで Shader の GLSL や、path で線を引く方法を紹介しました。
 
 しかも、かっこいい絵を出すテクニックではなく、グラフィクスプログラミングをするための環境作りのみで、残りはみなさんにぶん投げる着地でございました。。。
 
 path を引く際の数式をゴリゴリ紹介し、「こんないい感じになるんやで！」と、したかったのですが、センス・知識・紹介技量全てが足りず、いつかは紹介したいと思っております。
 
-今回は、前回のpath とは違うpath を使って、絵を出すとは違うプログラミングをやっていこうと思います。
+今回は、前回の path とは違う path を使って、絵を出すとは違うプログラミングをやっていこうと思います。
 
 ## Pythonista3 から、Pythonista3 を覗き見る
 
@@ -50,16 +59,16 @@ Pythonista3 では「ScriptLibrary」内に自分のコードを置いたり、�
 - ScriptLibrary
   - 主に自分の作成したコードを格納する場所
 - ExternalFiles
-  - 外部（ファイルApp や他のアプリ）のファイルやフォルダを参照する
+  - 外部（ファイル App や他のアプリ）のファイルやフォルダを参照する
 - Python Modules
   - 標準モジュール、Pythonista3 で用意されているモジュールの格納場所
   - 自作モジュールも格納できるよう準備されれいる
 
-それらは、Pythonista3 のGUI でタップすることで、行ったり来たり選んだりが、気軽にできます。
+それらは、Pythonista3 の GUI でタップすることで、行ったり来たり選んだりが、気軽にできます。
 
-またGUI 操作以外でも、Python は、標準でファイル・ディレクトリ操作ができるモジュールがあるので、コードから該当のファイルへアクセスしたり、新規作成等が可能です。
+また GUI 操作以外でも、Python は、標準でファイル・ディレクトリ操作ができるモジュールがあるので、コードから該当のファイルへアクセスしたり、新規作成等が可能です。
 
-これまででも、特にEditor Action を使ったコードでファイルの新規作成などで使ってきました。
+これまででも、特に Editor Action を使ったコードでファイルの新規作成などで使ってきました。
 
 プログラミングをするにあたり、フォルダ構成の理解は必要な部分かと思われます。
 
@@ -71,9 +80,9 @@ Pythonista3 では「ScriptLibrary」内に自分のコードを置いたり、�
 免責事項として書いています。
 :::
 
-アプリやOS 内部構造を操作することになります。
+アプリや OS 内部構造を操作することになります。
 
-変更や削除で、アプリやOS が起動不可になることもありえます。
+変更や削除で、アプリや OS が起動不可になることもありえます。
 
 不具合に関しては自己責任でお願い致します。
 
@@ -85,11 +94,11 @@ https://docs.python.org/ja/3.6/library/pathlib.html
 
 Pythonista3 が、`3.6` なので一応`3.6.15` のバージョンで見ています。
 
-`os` モジュール等でも可能ですが、私的に`pathlib` が使いやすいので、`pathlib` で確認していきます。`os`、`sys` 等が使いやすい方は、脳内読み替えでお願いいたします🙇
+`os` モジュール等でも可能ですが、私的に`pathlib` が使いやすいので、`pathlib` で確認していきます。`os`、`sys` 等が使いやすい方は、脳内読み替えでお願いいたします 🙇
 
 公式ドキュメントで迷子になった時は、こちらにお世話になってるます。
 
-[Python, pathlibの使い方（パスをオブジェクトとして操作・処理） | note.nkmk.me](https://note.nkmk.me/python-pathlib-usage/)
+[Python, pathlib の使い方（パスをオブジェクトとして操作・処理） | note.nkmk.me](https://note.nkmk.me/python-pathlib-usage/)
 
 https://note.nkmk.me/python-pathlib-usage/
 
@@ -119,7 +128,7 @@ ScriptLibrary 直下に作成したファイルから呼び出した場合は以
 
 `それぞれ-違う-英数字` には、個別端末（？）ごとに違う表記となります。
 
-ExternalFiles からファイルApp の`ダウンロード` 直下にあるコードを実行すると以下の結果で出力されるのが確認できます。
+ExternalFiles からファイル App の`ダウンロード` 直下にあるコードを実行すると以下の結果で出力されるのが確認できます。
 
 ```
 /private/var/mobile/Containers/Shared/AppGroup/それぞれ-違う-英数字/File Provider Storage/Downloads
@@ -143,13 +152,13 @@ PermissionError: [Errno 1] Operation not permitted
 
 ```
 
-うーん、面白いですね☺️
+うーん、面白いですね ☺️
 
 #### ScriptLibrary 直下のフォルダやファイル
 
 ScriptLibrary 直下に（わかりやすく）ファイル名を`rootThisFile.py` として作成して、同階層に何があるか見てみましょう。
 
-``` rootThisFile.py
+```rootThisFile.py
 from pathlib import Path
 
 path = Path()
@@ -163,7 +172,7 @@ for f in abs_path.glob('*'):
 
 `.glob('*')` として、ゴリっと取得したものを出力しています。
 
-[Python, pathlibでファイル一覧を取得（glob, iterdir） | note.nkmk.me](https://note.nkmk.me/python-pathlib-iterdir-glob/)
+[Python, pathlib でファイル一覧を取得（glob, iterdir） | note.nkmk.me](https://note.nkmk.me/python-pathlib-iterdir-glob/)
 
 https://note.nkmk.me/python-pathlib-iterdir-glob/
 
@@ -280,13 +289,13 @@ Pythonista3 アプリ自体のディレクトリになるのでしょうか？
 
 ### ファイルに何が書かれているか気になる
 
-階層の探訪をしてきました。フォルダ以外にファイルも表示されているので、見たことある拡張子（`.json` など）の中を読んでみたくなりますよね？私はなります☺️
+階層の探訪をしてきました。フォルダ以外にファイルも表示されているので、見たことある拡張子（`.json` など）の中を読んでみたくなりますよね？私はなります ☺️
 
-`pathlib`  モジュールは、`open` を使った`with` を使わずとも、1行でテキスト情報を取得できるます。
+`pathlib` モジュールは、`open` を使った`with` を使わずとも、1 行でテキスト情報を取得できるます。
 
 `.read_text` を使って、中身を見てみましょう。
 
-[Python, pathlibでファイルの作成・open・読み書き・削除 | note.nkmk.me](https://note.nkmk.me/python-pathlib-file-open-read-write-unlink/)
+[Python, pathlib でファイルの作成・open・読み書き・削除 | note.nkmk.me](https://note.nkmk.me/python-pathlib-file-open-read-write-unlink/)
 
 https://note.nkmk.me/python-pathlib-file-open-read-write-unlink/
 
@@ -329,7 +338,7 @@ ScriptLibrary 直下の場合、`.parent` 一回呼び出しの階層です。
 
 ```
 
-2つの`.json` ファイルが見つかりました。
+2 つの`.json` ファイルが見つかりました。
 
 ##### `.json` ファイルを見る
 
@@ -356,8 +365,33 @@ print(txt)
 ![img221127_163122.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/2953777/0f81a762-2469-9e4b-27c6-e3d838c86835.png)
 
 ```json
-[{"scriptName":"Examples\/Extension\/Copy Photo Location.py","iconName":"ios7-world","iconColor":"6CB8FF"},{"scriptName":"Examples\/Extension\/Image Histogram.py","iconName":"stats-bars","iconColor":"6CFF7F"},{"scriptName":"Examples\/Extension\/Text Statistics.py","iconName":"document-text","iconColor":"FFBD62"},{"scriptName":"Examples\/Extension\/URL to QR Code.py","iconName":"grid","iconColor":"62F0FF"},{"scriptName":"Examples\/Extension\/Preview Markdown.py","iconName":"ios7-eye","iconColor":"4A525A"}]
-
+[
+  {
+    "scriptName": "Examples/Extension/Copy Photo Location.py",
+    "iconName": "ios7-world",
+    "iconColor": "6CB8FF"
+  },
+  {
+    "scriptName": "Examples/Extension/Image Histogram.py",
+    "iconName": "stats-bars",
+    "iconColor": "6CFF7F"
+  },
+  {
+    "scriptName": "Examples/Extension/Text Statistics.py",
+    "iconName": "document-text",
+    "iconColor": "FFBD62"
+  },
+  {
+    "scriptName": "Examples/Extension/URL to QR Code.py",
+    "iconName": "grid",
+    "iconColor": "62F0FF"
+  },
+  {
+    "scriptName": "Examples/Extension/Preview Markdown.py",
+    "iconName": "ios7-eye",
+    "iconColor": "4A525A"
+  }
+]
 ```
 
 無事に取得できました。
@@ -366,33 +400,32 @@ print(txt)
 
 ```json
 [
- {
-  "scriptName": "Examples/Extension/Copy Photo Location.py",
-  "iconName": "ios7-world",
-  "iconColor": "6CB8FF"
- },
- {
-  "scriptName": "Examples/Extension/Image Histogram.py",
-  "iconName": "stats-bars",
-  "iconColor": "6CFF7F"
- },
- {
-  "scriptName": "Examples/Extension/Text Statistics.py",
-  "iconName": "document-text",
-  "iconColor": "FFBD62"
- },
- {
-  "scriptName": "Examples/Extension/URL to QR Code.py",
-  "iconName": "grid",
-  "iconColor": "62F0FF"
- },
- {
-  "scriptName": "Examples/Extension/Preview Markdown.py",
-  "iconName": "ios7-eye",
-  "iconColor": "4A525A"
- }
+  {
+    "scriptName": "Examples/Extension/Copy Photo Location.py",
+    "iconName": "ios7-world",
+    "iconColor": "6CB8FF"
+  },
+  {
+    "scriptName": "Examples/Extension/Image Histogram.py",
+    "iconName": "stats-bars",
+    "iconColor": "6CFF7F"
+  },
+  {
+    "scriptName": "Examples/Extension/Text Statistics.py",
+    "iconName": "document-text",
+    "iconColor": "FFBD62"
+  },
+  {
+    "scriptName": "Examples/Extension/URL to QR Code.py",
+    "iconName": "grid",
+    "iconColor": "62F0FF"
+  },
+  {
+    "scriptName": "Examples/Extension/Preview Markdown.py",
+    "iconName": "ios7-eye",
+    "iconColor": "4A525A"
+  }
 ]
-
 ```
 
 [Share Sheet Extension | App Extensions and Shortcuts — Python 3.6.1 documentation](https://omz-software.com/pythonista/docs/ios/pythonista_shortcuts.html#pythonista-share-extension)
@@ -405,7 +438,7 @@ Share Sheet Extension の情報が入っている`.json` ファイルのよう�
 
 ![img221127_163455.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/2953777/f65239a2-5afb-08b2-4994-368085728057.png)
 
-こんな所に格納され設定されていたのですね😎
+こんな所に格納され設定されていたのですね 😎
 
 ## 次回は
 
@@ -413,15 +446,19 @@ Share Sheet Extension の情報が入っている`.json` ファイルのよう�
 
 GUI のフォルダ構成とは裏腹に、内部の構成がされてましたね。
 
-気になるフォルダ名、ファイル名を探して中身を確認してみてください☺️
+気になるフォルダ名、ファイル名を探して中身を確認してみてください ☺️
 
 とはいえ、毎回`print` 確認をするのは面倒で骨が折れます。。。
 
 そこで、次回は`webbrowser` モジュール等を使ってディレクトリ探訪をもっと楽にしましょう。
 
-標準モジュールである、`webbrowser` ですがPythonista3 用に一部カスタマイズされているのです☺️
+標準モジュールである、`webbrowser` ですが Pythonista3 用に一部カスタマイズされているのです ☺️
 
 ここまで、読んでいただきありがとうございました。
+
+👇 : 11 日目
+
+https://qiita.com/pome-ta/items/3315732c8db62a55b86b
 
 ## せんでん
 
@@ -449,7 +486,7 @@ https://techbookfest.org/product/wTZTyeibm5GQ5XgdfMrEBV?productVariantID=kRDmN1u
 
 [Pythonista3 Advent Calendar 2022](https://qiita.com/advent-calendar/2022/pythonista3) でのコードをまとめているリポジトリがあります。
 
-コードのエラーや変なところや改善点など。ご指摘やPR お待ちしておりますー
+コードのエラーや変なところや改善点など。ご指摘や PR お待ちしておりますー
 
 https://github.com/pome-ta/Pythonista3AdventCalendar2022sampleCode
 
@@ -463,6 +500,6 @@ https://twitter.com/pome_ta93
 
 - GitHub
 
-基本的にGitHub にコードをあげているので、何にハマって何を実装しているのか観測できると思います。
+基本的に GitHub にコードをあげているので、何にハマって何を実装しているのか観測できると思います。
 
 https://github.com/pome-ta

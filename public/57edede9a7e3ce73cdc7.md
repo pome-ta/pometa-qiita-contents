@@ -14,16 +14,23 @@ slide: false
 ignorePublish: false
 ---
 
+この記事は、[Pythonista3 Advent Calendar 2022](https://qiita.com/advent-calendar/2022/pythonista3) の 08 日目の記事です。
 
-この記事は、[Pythonista3 Advent Calendar 2022](https://qiita.com/advent-calendar/2022/pythonista3) の08日目の記事です。
+👇 : 07 日目
+
+https://qiita.com/pome-ta/items/d436796a7669e7c29ea5
+
+👇 : 09 日目
+
+https://qiita.com/pome-ta/items/0e2d3bd3e22fe922f2c0
 
 https://qiita.com/advent-calendar/2022/pythonista3
 
 一方的な偏った目線で、Pythonista3 を紹介していきます。
 
-ほぼ毎日iPhone（Pythonista3）で、コーディングをしている者です。よろしくお願いします。
+ほぼ毎日 iPhone（Pythonista3）で、コーディングをしている者です。よろしくお願いします。
 
-以下、私の2022年12月時点の環境です。
+以下、私の 2022 年 12 月時点の環境です。
 
 ```sysInfo.log
 --- SYSTEM INFORMATION ---
@@ -41,27 +48,25 @@ https://qiita.com/advent-calendar/2022/pythonista3
 
 https://omz-software.com/pythonista/docs/ios/scene.html#shader
 
-> シェーダーオブジェクトは、カスタムOpenGLフラグメントシェーダーを表し、スプライトノードおよびエフェクトノードオブジェクトのレンダリング動作を（それぞれのシェーダー属性を通じて）変更するために使用することができます。
+> シェーダーオブジェクトは、カスタム OpenGL フラグメントシェーダーを表し、スプライトノードおよびエフェクトノードオブジェクトのレンダリング動作を（それぞれのシェーダー属性を通じて）変更するために使用することができます。
 
 > シェーダプログラミングは複雑なトピックであり、完全な紹介はこのドキュメントの範囲外ですが、基本的なコンセプトは非常にシンプルです。フラグメントシェーダは本質的に GPU 上で直接実行される関数／プログラムであり、各ピクセルの色値を生成する責任を負っています。シェーダは GLSL（GL Shading Language）で書かれ、これは C 言語に非常によく似ています。
 
-私は、`ui` モジュールの`draw` メソッドや、`scene` での描画（Processing や、JavaScript のcanvas(CanvasRenderingContext2D) のようなもの）では、鉛筆を`x` と`y` 座標に持ってきて線を引く（それを繰り返す）。といった処理のイメージを持っています。
+私は、`ui` モジュールの`draw` メソッドや、`scene` での描画（Processing や、JavaScript の canvas(CanvasRenderingContext2D) のようなもの）では、鉛筆を`x` と`y` 座標に持ってきて線を引く（それを繰り返す）。といった処理のイメージを持っています。
 
-Shader （これ以降は、GLSLと記載）では、事前にGPU で演算をし、結果の全てをドカっと描画する。みたいなイメージで、理解をしています。
+Shader （これ以降は、GLSL と記載）では、事前に GPU で演算をし、結果の全てをドカっと描画する。みたいなイメージで、理解をしています。
 
 「線を引く」ことも、今までとは全く違う書き方をするので、最初はびっくりするかもしれませんが、GPU 演算のパワーで面白い表現ができます。
-
 
 Pythonista3 Documentation でも「複雑なトピック」とあるように、よちよち歩きの私では簡単に概略を説明することは難しいです。。。
 
 ### サンプルを動かしてみる
 
-とにかく、Pythonista3 でどうやってGLSL やるのか体験してみましょう。
+とにかく、Pythonista3 でどうやって GLSL やるのか体験してみましょう。
 
 [shader | scene — 2D Games and Animations — Python 3.6.1 documentation](https://omz-software.com/pythonista/docs/ios/scene.html#shader)
 
 https://omz-software.com/pythonista/docs/ios/scene.html#shader
-
 
 `shader` の項目から下へスクロールすると、サンプルコードがあり`[Open in Editor]` をタップすると、エディタにサンプルコードがコピーされた状態で出てきます。
 
@@ -69,13 +74,11 @@ https://omz-software.com/pythonista/docs/ios/scene.html#shader
 
 ![img221125_150211.gif](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/2953777/4832ee38-ed62-a6f4-bdff-7d94f2eb9bfa.gif)
 
-
-
 画像に波紋のようなエフェクトが出ており、タップするとその場所を中心とした波紋に変わります。
 
-このような処理はGLSL 以外で実装すると、結構処理が重くなってしまう実装の部類になると思われますが、GLSL のおかげでぬるぬる動いてくれています。
+このような処理は GLSL 以外で実装すると、結構処理が重くなってしまう実装の部類になると思われますが、GLSL のおかげでぬるぬる動いてくれています。
 
-### サンプルのGLSL コード
+### サンプルの GLSL コード
 
 GLSL のコード部分です:
 
@@ -97,7 +100,7 @@ void main(void) {
 }
 ```
 
-GLSL のコードをPython の文字列として、変数`ripple_shader` に代入しています:
+GLSL のコードを Python の文字列として、変数`ripple_shader` に代入しています:
 
 ```py
 ripple_shader = '''
@@ -119,7 +122,7 @@ void main(void) {
 '''
 ```
 
-画像が入っている`SpriteNode` へ、`.shader` でGLSL コードを反映させることになります:
+画像が入っている`SpriteNode` へ、`.shader` で GLSL コードを反映させることになります:
 
 ```py
 self.sprite = SpriteNode('test:Pythonista', parent=self)
@@ -151,7 +154,8 @@ void main(void) {
     gl_FragColor = texture2D(u_texture,uv);
 }
 ```
-↑ のコードを↓ に書き換える。
+
+↑ のコードを ↓ に書き換える。
 
 ```glsl
 precision highp float;
@@ -165,13 +169,11 @@ void main(void) {
 
 余裕がある方は、最初のサンプルコードから何が残って何が削られたか見比べてみましょう。
 
-GLSL の1行コメントアウトは`//` 、`/* 複数行 */` で1行以上の範囲でコメントアウトできます。Python のようにオフサイドルールはありません。インデントは気にしなくて大丈夫です。
+GLSL の 1 行コメントアウトは`//` 、`/* 複数行 */` で 1 行以上の範囲でコメントアウトできます。Python のようにオフサイドルールはありません。インデントは気にしなくて大丈夫です。
 
 `▷` をタップし実行してみましょう。
 
 ![img221126_134233.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/2953777/f96100df-71c7-0a10-325f-0d56a357386e.png)
-
-
 
 この絵が出てきたら成功です。
 
@@ -199,9 +201,9 @@ void main(void) {
 
 ```
 
-おめでとうございます！！GLSL の第一歩を踏み出せましたね☺️
+おめでとうございます！！GLSL の第一歩を踏み出せましたね ☺️
 
-### `SpriteNode` とGLSL 間で、何が起きているのか？
+### `SpriteNode` と GLSL 間で、何が起きているのか？
 
 GLSL の基本に入る前に、Pythonista3 側での動きを整理します。
 
@@ -215,11 +217,9 @@ GLSL の基本に入る前に、Pythonista3 側での動きを整理します。
 
 https://omz-software.com/pythonista/docs/ios/scene.html#scene
 
-
 [scene.Node | scene — 2D Games and Animations — Python 3.6.1 documentation](https://omz-software.com/pythonista/docs/ios/scene.html#node)
 
 https://omz-software.com/pythonista/docs/ios/scene.html#node
-
 
 外側の`Scene` の中に、さまざまな役割を持った`Node` を`.add_child` し、`update` 時や`touch` イベントにて状態変化をさせていくのです。
 
@@ -264,11 +264,11 @@ Scene
 - SpriteNode
 - EffectNode
 
-の、2つの`Node` です。
+の、2 つの`Node` です。
 
 #### `SpriteNode` で、テクスチャを呼び出しているのに表示されていない？
 
-書き換えたGLSL のコードでは、Pythonista のアイコンを`SpriteNode` で呼び出しているのに、最終的な描画では表示がされていませんでした。
+書き換えた GLSL のコードでは、Pythonista のアイコンを`SpriteNode` で呼び出しているのに、最終的な描画では表示がされていませんでした。
 
 通常の、`scene.Shader` を呼び出さずに実行した場合にはアイコンが表示されます:
 
@@ -279,7 +279,6 @@ self.sprite = SpriteNode('test:Pythonista', parent=self)
 ```
 
 `scene.Shader` を使用することにより、GLSL コード内で最終描画の決定が一任されます。`SpriteNode` は、描画されるはずであった「エリアの範囲」や「サイズ」の情報以外は、GLSL 処理のされるがままとなるのです。
-
 
 GLSL に処理を託す関係上、`SpriteNode` が持っている情報を渡して、GLSL にいい感じにやってもらうための処理が必要です。
 
@@ -312,7 +311,7 @@ void main(void) {
 
 ```
 
-`Hello World!` 的なGLSL コードでは、橋渡しの情報を何も記載せずに、`SpriteNode` が保持している描画範囲にGLSL 側で好きに描画指示を出しているだけなので、テクスチャは出ずに、グラデーションがかかった絵が出力されたのです。
+`Hello World!` 的な GLSL コードでは、橋渡しの情報を何も記載せずに、`SpriteNode` が保持している描画範囲に GLSL 側で好きに描画指示を出しているだけなので、テクスチャは出ずに、グラデーションがかかった絵が出力されたのです。
 
 #### 「描画される」とかは、まだ考えなくていいです
 
@@ -322,16 +321,16 @@ Pythonista3 側の処理の整理なので、GLSL で何が起こっているか
 
 - 実行するための外側の呼び出し
 - `SpriteNode` にテクスチャを呼んでいる
-- `.shader` で、よしなにGLSL が処理をしている
+- `.shader` で、よしなに GLSL が処理をしている
 - 最終的な出力が決まる
 
 の流れと、
 
 - 描画される範囲は`SpriteNode` が持っている
 
-と、いう部分を知っていただければとOKです。
+と、いう部分を知っていただければと OK です。
 
-## Pythonista3 でGLSL やろうぜ
+## Pythonista3 で GLSL やろうぜ
 
 GLSL のコードを書いて、Pythonista3（`scene` モジュール）で実行できることがわかりました。
 
@@ -358,19 +357,17 @@ void main(void) {
 '''
 ```
 
-
 GLSL のコードは別ファイルで書き、個別管理する方が何かと建設的ですよね。
 
-そこで、[Pythonista3 Advent Calendar 2022](https://qiita.com/advent-calendar/2022/pythonista3) で大人気のEditor Action を使って気軽にGLSL コードを実行できるようにしてみましょう。
+そこで、[Pythonista3 Advent Calendar 2022](https://qiita.com/advent-calendar/2022/pythonista3) で大人気の Editor Action を使って気軽に GLSL コードを実行できるようにしてみましょう。
 
 ### Editor Action にするコード
 
 （Editor Action の設定方法は、過去記事を参照してください）
 
-[Editor Action | Pythonista3 のeditor module を使い、Pythonista3 のコーディングを楽にする - Qiita](https://qiita.com/pome-ta/items/c3902a0f6a0de691df8d#editor-action)
+[Editor Action | Pythonista3 の editor module を使い、Pythonista3 のコーディングを楽にする - Qiita](https://qiita.com/pome-ta/items/c3902a0f6a0de691df8d#editor-action)
 
 https://qiita.com/pome-ta/items/c3902a0f6a0de691df8d#editor-action
-
 
 ![img221126_190752.gif](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/2953777/27a6563b-c91f-ee70-573e-b0f547c20828.gif)
 
@@ -413,9 +410,7 @@ if __name__ == '__main__':
    3. `scene` で実行
 3. GLSL のコードが描画される
 
-
 ![img221126_190717.gif](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/2953777/1c2acbd8-fb75-736f-6e12-e4a4c1047e8b.gif)
-
 
 画面サイズから`0.957` 倍のサイズで表示させることにより、端の描画確認をしやすいようにしています。
 
@@ -426,8 +421,6 @@ if __name__ == '__main__':
 GLSL のコードが「記載」してあるファイルの「内容」を取得しているので、`.py` でも、`.js` でも拡張子を気にせず使用できます（Pythonista3 で認識できない拡張子は、ファイル開く確認を都度されるので、逆に`.glsl` や、`.frag` 等はあまりおすすめできません）。
 
 `.py` であれば、コード上に記載がある内容は一部補完が効きます、`.js` であれば、補完は効きませんが、コメントアウトのシンタックスハイライト等がわかりやすいです。
-
-
 
 ## よっしゃ！GLSL 入門や！（（ここでは）しません）
 
@@ -442,7 +435,7 @@ GLSL のコードが「記載」してあるファイルの「内容」を取得
 https://thebookofshaders.com/?lan=jp
 
 - [[連載]やってみれば超簡単！ WebGL と GLSL で始める、はじめてのシェーダコーディング（１） - Qiita](https://qiita.com/doxas/items/b8221e92a2bfdc6fc211)
-  - 日本WebGL の父doxas さんの連載記事
+  - 日本 WebGL の父 doxas さんの連載記事
   - WebGL ？あ、アタラシイ、コトバ、、タンゴ、、、と混乱させてすみません。いまは、気にせずで大丈夫（な、はず）
 
 https://qiita.com/doxas/items/b8221e92a2bfdc6fc211
@@ -451,7 +444,7 @@ https://qiita.com/doxas/items/b8221e92a2bfdc6fc211
 
 ### 注意点
 
-Pythonista3 でGLSL をチャレンジしてみる際に、数点読み替えが必要な箇所があります。
+Pythonista3 で GLSL をチャレンジしてみる際に、数点読み替えが必要な箇所があります。
 
 #### `uniform` 変数
 
@@ -493,19 +486,16 @@ varying vec2 v_tex_coord;
 
 void main(){
   vec2 p = (v_tex_coord - vec2(0.5)) * 2.0;
-  
+
   p += vec2(cos(u_time * 5.0), sin(u_time)) * 0.5;
   float l = 0.1 / length(p);
-  
+
   gl_FragColor = vec4(vec3(l), 1.0);
 }
 
 ```
 
-
 ![img221126_200639.gif](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/2953777/b0fe8694-71c7-26de-f175-9a1ea156c47d.gif)
-
-
 
 正方形だからこそ使える力技で、なんとかする方法もあります。
 
@@ -513,11 +503,11 @@ void main(){
 
 Pythonista3 の`scene` モジュールでは、解決策を検索してもなかなか見つかりません。方法として一番可能性が高いのが`SpriteKit` をキーワードに追加して検索をしてみることです。
 
-`scene` モジュールは、iOS, iPadOS のSpriteKit framework がベース（ラップ）となっています。案外`SpriteKit` で調べた方が解決が早い場合があります（情報が突然増え混乱する可能性もありますが）。
+`scene` モジュールは、iOS, iPadOS の SpriteKit framework がベース（ラップ）となっています。案外`SpriteKit` で調べた方が解決が早い場合があります（情報が突然増え混乱する可能性もありますが）。
 
 ## 次回は
 
-Pythonista3 でGLSL が実行できるんです。という、紹介のみでGLSL 自体が疎かになってしまいました。
+Pythonista3 で GLSL が実行できるんです。という、紹介のみで GLSL 自体が疎かになってしまいました。
 
 GLSL 奥が深いので、興味が湧いた方はぜひ調べてみてください！「は？意味わからん」の感動や疑問や恐怖が入り混じる素敵な世界です。
 
@@ -531,14 +521,17 @@ https://thebookofshaders.com/04/?lan=jp
 
 また、他の簡単な実行環境はブラウザがメインであり。PC での体験は最高なのですが、モバイルとなるとコード編集の煩わしさを強く感じます。
 
-そういった観点でみると、Pythonista3 の`scene` を使ったGLSL 実行環境は比較的カジュアルに実装できるのではないかと感じています。
+そういった観点でみると、Pythonista3 の`scene` を使った GLSL 実行環境は比較的カジュアルに実装できるのではないかと感じています。
 
-決してモバイルオンリーでGLSL を完結させたい訳ではないです。ふとした時に「この処理だとどうなる？」の思いつきに、素早く編集ができ実行ができる環境が素敵だなと思っているだけです。
+決してモバイルオンリーで GLSL を完結させたい訳ではないです。ふとした時に「この処理だとどうなる？」の思いつきに、素早く編集ができ実行ができる環境が素敵だなと思っているだけです。
 
 次回は、今回使用した`scene` モジュールと、`ui` モジュールの合わせ技で、いい感じにアプリっぽくする方法を紹介します。
 
-
 ここまで、読んでいただきありがとうございました。
+
+👇 : 09 日目
+
+https://qiita.com/pome-ta/items/0e2d3bd3e22fe922f2c0
 
 ## せんでん
 
@@ -566,7 +559,7 @@ https://techbookfest.org/product/wTZTyeibm5GQ5XgdfMrEBV?productVariantID=kRDmN1u
 
 [Pythonista3 Advent Calendar 2022](https://qiita.com/advent-calendar/2022/pythonista3) でのコードをまとめているリポジトリがあります。
 
-コードのエラーや変なところや改善点など。ご指摘やPR お待ちしておりますー
+コードのエラーや変なところや改善点など。ご指摘や PR お待ちしておりますー
 
 https://github.com/pome-ta/Pythonista3AdventCalendar2022sampleCode
 
@@ -580,7 +573,6 @@ https://twitter.com/pome_ta93
 
 - GitHub
 
-基本的にGitHub にコードをあげているので、何にハマって何を実装しているのか観測できると思います。
+基本的に GitHub にコードをあげているので、何にハマって何を実装しているのか観測できると思います。
 
 https://github.com/pome-ta
-
