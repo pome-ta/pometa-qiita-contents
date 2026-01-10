@@ -7,7 +7,7 @@ tags:
   - MobileApp
   - Pythonista3
 private: false
-updated_at: '2026-01-09T23:38:36+09:00'
+updated_at: '2026-01-10T16:37:36+09:00'
 id: 843ecbff44d4bdc07fd0
 organization_url_name: null
 slide: false

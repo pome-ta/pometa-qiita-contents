@@ -7,7 +7,7 @@ tags:
   - Pythonista3
   - pathlib
 private: false
-updated_at: '2022-12-10T07:01:17+09:00'
+updated_at: '2026-01-10T16:37:36+09:00'
 id: d7ce9fe64e1ba774fae4
 organization_url_name: null
 slide: false
